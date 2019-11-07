@@ -3,7 +3,23 @@ setlocal enabledelayedexpansion
 
 :START
 title %0
+call:FcolorWhite
 
+if "%~1"=="%~dp0adb_pull.ini" (
+  set target=
+  for /f "delims=" %%a in (adb_pull.ini) do (
+    set tmp_line=%%a
+    echo !tmp_line!
+    if "!tmp_line:~0,1!"=="#" (
+      rem echo !tmp_line:~0,1!
+    ) else (
+      set target=!target! !tmp_line!
+      rem echo !target!
+    )
+  )
+  
+  goto START_PULL
+)
 :PARA_CHECK
 call:FcolorGreen
 echo Plese input all file full path, seperate by space.
@@ -13,9 +29,10 @@ if "%target%"=="" (
   goto PARA_CHECK
 )
 
+:START_PULL
 call adb-pull.cmd %target%
 echo.
-
+SHIFT
 goto START
 
 
