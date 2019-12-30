@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 set CURE_NAME=%0
 title %CURE_NAME%
 echo -------------------Start of %CURE_NAME% -------------------
-set DEST_DIR=FromBoard\
+set DEST_DIR=FromBoard
 if "%~1"=="" (
   set NO_PARA=true
 )else (
@@ -27,8 +27,8 @@ if "%target%"=="" (
 )
 call:FcolorGreen
 echo %target% ^=^=^=^=^> %DEST_DIR%
-echo adb pull "%target%" %DEST_DIR%
-adb pull "%target%" %DEST_DIR%
+echo adb pull "%target%" "%DEST_DIR%"
+adb pull "%target%" "%DEST_DIR%"
 call:FcolorWhite
 
 SHIFT
@@ -46,7 +46,7 @@ if %NO_PARA%==true (
   goto PULL
 )
 echo -------------------End of %CURE_NAME% -------------------
-REM pause
+pause
 REM call cmd
 
 
