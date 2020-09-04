@@ -8,6 +8,9 @@ if "%~1"=="" (
   echo Please Input Target File.
   goto END
 )
+echo pix_fmt: gray, yuv420p, nv21 ...
+set /p pix_fmt=Please Input The pix_fmt para:
+echo your pix_fmt: %pix_fmt%
 
 set /p width=Please Input The Width:
 set /p height=Please Input The Height:
@@ -23,7 +26,7 @@ copy %target% %target%.yuv >%CURE_NAME%.log 2>&1
 if exist %target%.bmp (
   del /F %target%.bmp
 )
-ffmpeg -pix_fmt yuv420p -s %width%*%height% -i %target%.yuv %target%.bmp >>%CURE_NAME%.log 2>&1
+ffmpeg -pix_fmt %pix_fmt% -s %width%*%height% -i %target%.yuv %target%.bmp >>%CURE_NAME%.log 2>&1
 del /F %target%.yuv 
 
 SHIFT

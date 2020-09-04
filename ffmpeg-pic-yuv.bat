@@ -12,6 +12,10 @@ if "%~1"=="" (
 REM set /p width=Please Input The Width:
 REM set /p height=Please Input The Height:
 REM echo %width% %height%
+
+echo pix_fmt: gray, yuv420p, nv21 ...
+set /p pix_fmt=Please Input The pix_fmt para:
+echo your pix_fmt: %pix_fmt%
 :LOOP
 echo -----------------------------------
 set target=%~1
@@ -22,7 +26,7 @@ call:FcolorWhite
 if exist %target%.yuv (
   del /F %target%.yuv
 )
-ffmpeg -i %target% -pix_fmt yuv420p %target%.yuv >%CURE_NAME%.log 2>&1
+ffmpeg -i %target% -pix_fmt %pix_fmt% %target%-%pix_fmt%.yuv >%CURE_NAME%.log 2>&1
 
 SHIFT
 if not "%~1"=="" (
